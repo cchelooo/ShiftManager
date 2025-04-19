@@ -1,0 +1,18 @@
+:root {
+  --black: #000000;
+  --rich-black: #0c1821;
+  --oxford-blue: #1b2a41;
+  --charcoal: #324a5f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: var(--rich-black);
+  color: white;
+}
