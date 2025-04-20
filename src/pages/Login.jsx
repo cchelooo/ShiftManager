@@ -1,51 +1,44 @@
 import { useState } from "react";
-import { users, tasks } from "../data/users";
+import users from "../data/users";
 
 function Login() {
-  const [employeeNumber, setEmployeeNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [empleado, setEmpleado] = useState("");
+  const [contrasena, setContrasena] = useState("");
 
   const handleLogin = () => {
-    if (users[employeeNumber] && users[employeeNumber] === password) {
+    // Traer usuarios del localStorage si existen
+    const localUsuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+
+    // Buscar en localStorage primero, luego en users.js
+    const user = localUsuarios[empleado] || users[empleado];
+
+    // Verificar contraseña
+    if (user && user.password === contrasena) {
+      const userData = { id: empleado, ...user };
+      localStorage.setItem("loggedUser", JSON.stringify(userData));
       window.location.href = "/dashboard";
     } else {
-      setError("Número de empleado o contraseña incorrecta.");
+      alert("❌ Credenciales incorrectas");
     }
   };
 
   return (
     <div className="login-wrapper">
+      <h1 className="title">Shift Manager</h1>
       <div className="login-card">
-        <h1 className="title">Shift Manager</h1>
-        <h2 style={{ marginBottom: "1rem" }}>Iniciar sesión</h2>
-
-        <div className="input-group">
-          <label htmlFor="employee">Número de empleado</label>
-          <input
-            type="text"
-            id="employee"
-            value={employeeNumber}
-            onChange={(e) => setEmployeeNumber(e.target.value)}
-            placeholder="Ej. 1"
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-          />
-        </div>
-
-        {error && (
-          <p style={{ color: "tomato", marginBottom: "1rem" }}>{error}</p>
-        )}
-
+        <h2>Iniciar sesión</h2>
+        <input
+          type="text"
+          placeholder="Número de empleado"
+          value={empleado}
+          onChange={(e) => setEmpleado(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={contrasena}
+          onChange={(e) => setContrasena(e.target.value)}
+        />
         <button onClick={handleLogin}>Entrar</button>
       </div>
     </div>
