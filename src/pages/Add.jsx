@@ -1,16 +1,12 @@
 import { useState } from "react";
-import "./Add.css"; // Asegúrate de tener este archivo
+import "./Add.css";
 
 function Add({ usuarios, setUsuarios, setShowAddModal }) {
   const [nuevo, setNuevo] = useState({
     id: "",
     nombre: "",
     apellido: "",
-    tarea: "",
-    ocupacion: "",
-    ubicacion: "",
-    fecha: "",
-    password: "", // ← ¡Nuevo campo agregado!
+    password: "",
   });
 
   const [mensaje, setMensaje] = useState("");
@@ -25,36 +21,29 @@ function Add({ usuarios, setUsuarios, setShowAddModal }) {
       return;
     }
 
+    if (!nuevo.nombre || !nuevo.apellido || !nuevo.password) {
+      setMensaje("❌ Todos los campos son obligatorios.");
+      return;
+    }
+
     const nuevosUsuarios = { ...usuarios, [nuevo.id]: nuevo };
     setUsuarios(nuevosUsuarios);
     localStorage.setItem("usuarios", JSON.stringify(nuevosUsuarios));
-    setShowAddModal(false);
-    setMensaje("✅ Usuario agregado.");
+    setMensaje("✅ Usuario agregado con éxito.");
+
+    setTimeout(() => {
+      setShowAddModal(false);
+    }, 1000);
   };
 
   return (
     <div className="modal-overlay">
       <div className="add-modal">
         <h2>Agregar nuevo empleado</h2>
-        {[
-          "id",
-          "nombre",
-          "apellido",
-          "tarea",
-          "ocupacion",
-          "ubicacion",
-          "fecha",
-          "password",
-        ].map((campo) => (
+        {["id", "nombre", "apellido", "password"].map((campo) => (
           <input
             key={campo}
-            type={
-              campo === "fecha"
-                ? "date"
-                : campo === "password"
-                ? "password"
-                : "text"
-            }
+            type={campo === "password" ? "password" : "text"}
             placeholder={campo.charAt(0).toUpperCase() + campo.slice(1)}
             value={nuevo[campo]}
             onChange={(e) => handleChange(e, campo)}
