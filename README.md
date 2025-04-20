@@ -1,12 +1,43 @@
-# React + Vite
+# Shift Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Shift Manager es una aplicación web construida con React que permite a un administrador gestionar empleados y asignar tareas, mientras que los empleados pueden ver sus tareas asignadas desde su panel personal.
 
-Currently, two official plugins are available:
+## 🧠 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔐 Autenticación básica por ID  
+👩‍💼 Rol de Administrador (ID: "1") con permisos exclusivos  
+👷‍♂️ Vista para empleados con tabla de tareas asignadas  
+📝 Crear, editar y eliminar empleados  
 
-## Expanding the ESLint configuration
+## 📁 Estructura del Proyecto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── components/
+│   ├── Dashboard.jsx      ← Panel principal para admin y empleados
+│   ├── Add.jsx            ← Modal para añadir empleados
+│   ├── Gestion.jsx        ← Modal para editar/eliminar empleados
+│   ├── AddJob.jsx         ← Modal para asignar tareas
+├── data/
+│   └── users.js           ← Datos de empleados por defecto
+├── App.jsx
+├── main.jsx
+├── index.css
+└── styles/
+    └── Dashboard.css      ← Estilos para el dashboard
+```
+Accede desde tu navegador:  
+https://shift-manager-rho.vercel.app/
+
+## 🧪 Acceso de prueba
+
+Para acceder como administrador:
+- ID: 1  
+- Contraseña: 123
+
+## 🛠️ Tecnologías utilizadas (temporalmente)
+
+- React
+- JavaScript
+- CSS clásico
+- localStorage
